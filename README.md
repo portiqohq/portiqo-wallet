@@ -1,2 +1,2 @@
 # vibe-startup
-I'm building ??? in 30 days using vibes, $1000, and ChatGPT
+Building ??? in 30 days with vibes and $1000.
