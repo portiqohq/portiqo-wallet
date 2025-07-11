@@ -6,4 +6,4 @@ Our product brings modern access control features to legacy buildings without re
 Check back later for more!
 
 Non-product files (strategy, planning, notes) live here:
-https://web.tresorit.com/l/pltcG#PiVf-W-JFVmNC4BeyyY6dw
+https://web.tresorit.com/l/tLLLZ#Vi_lJqfR8jq4frV4x0piWA
