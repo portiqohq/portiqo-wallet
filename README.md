@@ -1,9 +1,9 @@
-# vibe-startup
-We're building a hardware startup in 30 days with vibes and $1000.
+# Portiqo Wallet
 
-Our product brings modern access control features to legacy buildings without replacing existing hardware. Users manage their RFID credentials through a mobile app and programmable emulator, while building admins get cloud-based tools for issuing, revoking, and securing access.
+Portiqo Wallet is an Apple Wallet style interface for RFID access cards.
 
-Check back later for more!
+Use it with Portiqo Key to combine all your fobs into one!
 
-Non-product files (strategy, planning, notes) live here:
-https://web.tresorit.com/l/tLLLZ#Vi_lJqfR8jq4frV4x0piWA
+
+We're building Portiqo in 30 days as part of a radical startup experiment. Check it out here!
+https://vibe-startup.xyz
