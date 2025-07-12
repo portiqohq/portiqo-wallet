@@ -14,14 +14,14 @@ struct ContentView: View {
                 CurrentCardWidget(currentCardID: connectionManager.currentCard)
                 List {
                     ForEach(keycards) { card in
-                        NavigationLink {
-                            CardDetailsView(card)
-                        } label: {
-                            Text(card.name)
+                        Button(action: { selectCard(card) } ) {
+                            CardRow(card)
                         }
+                        .listRowSeparator(.hidden)
                     }
                     .onDelete(perform: deleteItems)
                 }
+                .scrollContentBackground(.hidden)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -46,6 +46,10 @@ struct ContentView: View {
             let newCard = Keycard(name: "New card")
             modelContext.insert(newCard)
         }
+    }
+
+    private func selectCard(_ card: Keycard) {
+        connectionManager.sendCard(card)
     }
 
     private func deleteItems(offsets: IndexSet) {

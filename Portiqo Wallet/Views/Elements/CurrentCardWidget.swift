@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct CurrentCardWidget: View {
-    @State var currentCardID: UUID?
+    var currentCardID: UUID?
     @Query private var allCards: [Keycard]
 
     var body: some View {
