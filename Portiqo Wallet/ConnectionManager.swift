@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// ConnectionManager is responsible for managing the Bluetooth connection between the iOS app
 /// and the Portiqo Key device. It handles creating/terminating the connection andd
@@ -34,4 +35,16 @@ class ConnectionManager {
     ///     - If no keycard is currently stored on the Portiqo Key, nil.
     func getCurrentCard() -> UUID? { return nil }
 
+}
+
+private struct ConnectionManagerKey: EnvironmentKey {
+    static let defaultValue = ConnectionManager()
+}
+
+extension EnvironmentValues {
+    /// The current ConnectionManager instance available in the environment.
+    var connectionManager: ConnectionManager {
+        get { self[ConnectionManagerKey.self] }
+        set { self[ConnectionManagerKey.self] = newValue }
+    }
 }

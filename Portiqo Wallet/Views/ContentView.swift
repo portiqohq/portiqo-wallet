@@ -3,7 +3,10 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.connectionManager) private var connectionManager
     @Query private var keycards: [Keycard]
+
+    var isKeyConnected: Bool { connectionManager.isKeyConnected }
 
     var body: some View {
         NavigationSplitView {
@@ -18,7 +21,10 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
+                    ConnectionStatusIcon(isConnected: isKeyConnected)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
                 }
                 ToolbarItem {

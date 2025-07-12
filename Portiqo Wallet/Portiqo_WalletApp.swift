@@ -3,6 +3,7 @@ import SwiftData
 
 @main
 struct Portiqo_WalletApp: App {
+    var connectionManager: ConnectionManager = ConnectionManager()
     var sharedModelContainer: ModelContainer = {
         let schema = Schema(CurrentSchema.models)
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
@@ -19,5 +20,6 @@ struct Portiqo_WalletApp: App {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+        .environment(\.connectionManager, connectionManager)
     }
 }
