@@ -1,11 +1,30 @@
 import SwiftUI
 
 struct CardDetailsView: View {
+    var card: Keycard
+    @Bindable var cardAttributes: KeycardAttributes
+
+    init(_ card: Keycard) {
+        self.card = card
+        self.cardAttributes = KeycardAttributes(keycard: card)
+    }
+
     var body: some View {
-        Text("This is where you could learn about a Keycard")
-        Text("But there's nothing here yet :(")    }
+        VStack {
+            TextField("", text: $cardAttributes.name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+        }
+        .onDisappear(perform: saveChanges)
+    }
+
+    /// Persist the changes the user has made here
+    func saveChanges() {
+        card.update(from: cardAttributes)
+    }
 }
 
 #Preview {
-    CardDetailsView()
+    let card = Keycard(name: "Work Fob")
+    CardDetailsView(card)
 }

@@ -10,7 +10,7 @@ struct ContentView: View {
             List {
                 ForEach(keycards) { card in
                     NavigationLink {
-                        Text("Card named \(card.name)")
+                        CardDetailsView(card)
                     } label: {
                         Text(card.name)
                     }
