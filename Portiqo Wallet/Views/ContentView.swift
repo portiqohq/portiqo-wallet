@@ -10,15 +10,18 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(keycards) { card in
-                    NavigationLink {
-                        CardDetailsView(card)
-                    } label: {
-                        Text(card.name)
+            VStack {
+                CurrentCardWidget(currentCardID: connectionManager.currentCard)
+                List {
+                    ForEach(keycards) { card in
+                        NavigationLink {
+                            CardDetailsView(card)
+                        } label: {
+                            Text(card.name)
+                        }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
