@@ -14,5 +14,11 @@ extension WalletSchemaV1 {
             self.name = name
             self.id = UUID()
         }
+
+        /// Updates a Keycard's stored properties with the values taken from a KeycardAttributes object
+        /// KeycardAttributes objects store temporary values for Keycard properties while the user is editing in CardDetailsView
+        func update(from attributes: KeycardAttributes) {
+            self.name = attributes.name
+        }
     }
 }
