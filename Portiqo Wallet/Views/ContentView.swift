@@ -10,19 +10,17 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            VStack {
+            List {
                 CurrentCardWidget(currentCardID: connectionManager.currentCard)
-                List {
-                    ForEach(keycards) { card in
-                        Button(action: { selectCard(card) } ) {
-                            CardRow(card)
-                        }
-                        .listRowSeparator(.hidden)
+                ForEach(keycards) { card in
+                    Button(action: { selectCard(card) } ) {
+                        CardRow(card)
                     }
-                    .onDelete(perform: deleteItems)
+                    .listRowSeparator(.hidden)
                 }
-                .scrollContentBackground(.hidden)
+                .onDelete(perform: deleteItems)
             }
+            .scrollContentBackground(.hidden)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     ConnectionStatusIcon(isConnected: isKeyConnected)

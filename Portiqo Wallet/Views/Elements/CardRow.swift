@@ -15,6 +15,7 @@ struct CardRow: View {
             Text(card.name)
                 .font(.headline)
         }
+        .foregroundStyle(.secondary)
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
