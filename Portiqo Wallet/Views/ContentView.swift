@@ -7,12 +7,18 @@ struct ContentView: View {
     @Query private var keycards: [Keycard]
 
     var isKeyConnected: Bool { connectionManager.isKeyConnected }
+    // Cards that aren't loaded onto Portiqo Key
+    var inactiveKeycards: [Keycard] {
+        keycards
+            .filter { $0.id != connectionManager.currentCard }
+            .sorted { $0.name < $1.name }
+    }
 
     var body: some View {
         NavigationSplitView {
             List {
                 CurrentCardWidget(currentCardID: connectionManager.currentCard)
-                ForEach(keycards) { card in
+                ForEach(inactiveKeycards) { card in
                     Button {
                         Task {
                             await selectCard(card)

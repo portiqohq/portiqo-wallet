@@ -27,7 +27,7 @@ class ConnectionManager {
     /// - Parameters:
     ///     - card: The keycard to be written
     func sendCard(_ card: Keycard) async {
-        try? await Task.sleep(nanoseconds: 5_000_000_000) // 0.5s to simulate HW delay/
+        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5s to simulate HW delay/
         self.currentCard = card.id
     }
 
