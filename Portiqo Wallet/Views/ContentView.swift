@@ -45,7 +45,7 @@ struct ContentView: View {
 
     private func addCard() {
         withAnimation {
-            let newCard = Keycard(name: "New card")
+            let newCard = Keycard(name: "New card \(Int.random(in: 1...99))")
             modelContext.insert(newCard)
         }
     }
