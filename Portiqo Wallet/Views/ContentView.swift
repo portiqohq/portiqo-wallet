@@ -5,6 +5,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.connectionManager) private var connectionManager
     @Query private var keycards: [Keycard]
+    @State var isShowingCloneCardSheet: Bool = false
 
     var isKeyConnected: Bool { connectionManager.isKeyConnected }
     // Cards that aren't loaded onto Portiqo Key
@@ -32,6 +33,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .sheet(isPresented: $isShowingCloneCardSheet) { CloneCardView() }
             .scrollContentBackground(.hidden)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -41,20 +43,13 @@ struct ContentView: View {
                     EditButton()
                 }
                 ToolbarItem {
-                    Button(action: addCard) {
+                    Button(action: { isShowingCloneCardSheet.toggle() }) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
         } detail: {
             Text("Select an item")
-        }
-    }
-
-    private func addCard() {
-        withAnimation {
-            let newCard = Keycard(name: "New card \(Int.random(in: 1...99))")
-            modelContext.insert(newCard)
         }
     }
 

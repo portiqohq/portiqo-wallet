@@ -5,7 +5,12 @@ import Foundation
 @Observable
 class KeycardAttributes {
     var name: String
+
     init(keycard: Keycard) {
         self.name = keycard.name
+    }
+
+    init(name: String) {
+        self.name = name
     }
 }

@@ -39,9 +39,9 @@ class ConnectionManager {
 
     /// Reads a physical RF Keycard and creates a Keycard object with its data
     /// - Returns: A Keycard object with the information read from the physical card
-    func cloneCard() async -> Keycard? {
+    func cloneCard() async -> KeycardAttributes {
         try? await Task.sleep(nanoseconds: 2_000_000_000) // 2s delay to simulate user tapping card to Portiqo Key
-        return Keycard(name: "Cloned Card")
+        return KeycardAttributes(name: "Cloned Card")
     }
 
     /// Fetches the ID of the Keycard currently stored on the Portiqo Key
