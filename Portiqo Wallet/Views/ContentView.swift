@@ -17,10 +17,15 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List {
+            switch isKeyConnected {
+            case true:
                 if let currentCardID = connectionManager.currentCard {
                     CurrentCardWidget(currentCardID: currentCardID)
                 }
+            case false:
+                NoConnectionWidget()
+            }
+            List {
                 ForEach(inactiveKeycards) { card in
                     Button {
                         Task {
@@ -54,7 +59,9 @@ struct ContentView: View {
     }
 
     private func selectCard(_ card: Keycard) async {
-        await connectionManager.sendCard(card)
+        if isKeyConnected {
+            await connectionManager.sendCard(card)
+        }
     }
 
     private func deleteItems(offsets: IndexSet) {
