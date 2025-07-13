@@ -2,27 +2,36 @@ import SwiftUI
 import SwiftData
 
 struct CurrentCardWidget: View {
+    @Environment(\.connectionManager) private var connectionManager
     var currentCardID: UUID
     @Query private var allCards: [Keycard]
 
     var body: some View {
-        // If card exists in the user's wallet
-        HStack {
-            if let card = allCards.first(where: { $0.id == currentCardID }) {
-                Image(systemName: "lanyardcard.fill")
-                    .font(.largeTitle)
-                Spacer()
-                Text(card.name)
-                    .font(.largeTitle)
-                // If a card is loaded, but it isn't in the wallet (has it been deleted?)
-            } else {
+        VStack {
+            // If card exists in the user's wallet
+            HStack {
+                if let card = allCards.first(where: { $0.id == currentCardID }) {
+                    Image(systemName: "lanyardcard.fill")
+                        .font(.largeTitle)
+                    Spacer()
+                    Text(card.name)
+                        .font(.largeTitle)
+                    // If a card is loaded, but it isn't in the wallet (has it been deleted?)
+                } else {
 
-                Image(systemName: "questionmark.circle")
-                    .font(.title)
-                Spacer()
-                Text("Unknown Card")
-                    .font(.headline)
+                    Image(systemName: "questionmark.circle")
+                        .font(.title)
+                    Spacer()
+                    Text("Unknown Card")
+                        .font(.headline)
+                }
             }
+            Button("Unload Card") {
+                Task {
+                    await connectionManager.eraseKey()
+                }
+            }
+            .buttonStyle(.bordered)
         }
         .padding()
         .background(

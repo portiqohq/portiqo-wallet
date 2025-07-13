@@ -23,6 +23,12 @@ class ConnectionManager {
         self.isKeyConnected = false
     }
 
+    /// Erases keycard from  Portiqo Key
+    func eraseKey() async {
+        try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s to simulate HW delay/
+        self.currentCard = nil
+    }
+
     /// Writes a Keycard to the Portiqo Key
     /// - Parameters:
     ///     - card: The keycard to be written
