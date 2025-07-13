@@ -17,7 +17,9 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             List {
-                CurrentCardWidget(currentCardID: connectionManager.currentCard)
+                if let currentCardID = connectionManager.currentCard {
+                    CurrentCardWidget(currentCardID: currentCardID)
+                }
                 ForEach(inactiveKeycards) { card in
                     Button {
                         Task {
