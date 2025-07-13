@@ -13,7 +13,11 @@ struct ContentView: View {
             List {
                 CurrentCardWidget(currentCardID: connectionManager.currentCard)
                 ForEach(keycards) { card in
-                    Button(action: { selectCard(card) } ) {
+                    Button {
+                        Task {
+                            await selectCard(card)
+                        }
+                    } label: {
                         CardRow(card)
                     }
                     .listRowSeparator(.hidden)
@@ -46,8 +50,8 @@ struct ContentView: View {
         }
     }
 
-    private func selectCard(_ card: Keycard) {
-        connectionManager.sendCard(card)
+    private func selectCard(_ card: Keycard) async {
+        await connectionManager.sendCard(card)
     }
 
     private func deleteItems(offsets: IndexSet) {
