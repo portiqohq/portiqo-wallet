@@ -40,8 +40,8 @@ class ConnectionManager: NSObject {
     var rxCharacteristic: CBCharacteristic?
     ///
     /// The following UUIDs are used to identify the tx and rx characteristics:
-    private let nusTXUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") // Write
-    private let nusRXUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+    private let nusTxUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") // Write
+    private let nusRxUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
 
     override init() {
@@ -66,15 +66,19 @@ class ConnectionManager: NSObject {
     }
 
     /// Establishes a connection to the Portiqo Key
-    func connect() async {
-        try? await Task.sleep(nanoseconds: 500_000_000) // 0.5s to simulate HW delay
-        self.isKeyConnected = true
+    func connect(to peripheral: CBPeripheral) {
+        guard btRadioState == .poweredOn else {
+            // TODO: Add error handling
+            print("Tried to connect with BT off")
+            return
+        }
+        centralManager.connect(peripheral, options: nil)
+        self.connectedPeripheral = peripheral
     }
 
     /// Terminates connection to the Portiqo Key
     func disconnect() async {
         try? await Task.sleep(nanoseconds: 200_000_000) // 0.2s to simulate HW delay
-        self.isKeyConnected = false
     }
 
     /// Sends raw data to Portiqo Key
@@ -102,10 +106,50 @@ extension ConnectionManager: CBCentralManagerDelegate {
         }
     }
 
+    // When a device connects, set it as the connectedPeripheral and start service discovery
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Connected to \(peripheral.name ?? "device")")
+        peripheral.delegate = self
+        self.connectedPeripheral = peripheral
+        peripheral.discoverServices([nusServiceUUID])
+    }
+
 }
 
 extension ConnectionManager: CBPeripheralDelegate {
+    /// When a service is discovered, discover its characteristics
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard error == nil else {
+            print("Service discovery failed: \(error!.localizedDescription)")
+            return
+        }
+        guard let services = peripheral.services else { return }
 
+        for service in services {
+            print("Discovered service: \(service.uuid)")
+            peripheral.discoverCharacteristics([nusTxUUID, nusRxUUID], for: service)
+        }
+    }
+
+    /// When a NUS characteristics are discovered, save and enable them
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { return }
+
+        for characteristic in characteristics {
+            print("Discovered characteristic: \(characteristic.uuid)")
+
+            if characteristic.uuid == nusTxUUID {
+                self.txCharacteristic = characteristic
+            } else if characteristic.uuid == nusRxUUID {
+                self.rxCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: characteristic)
+            }
+        }
+        if txCharacteristic != nil && rxCharacteristic != nil {
+            print("Ready to send/receive data")
+            self.isKeyConnected = true
+        }
+    }
 }
 
 

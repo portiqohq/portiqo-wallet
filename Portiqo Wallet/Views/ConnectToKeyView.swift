@@ -9,13 +9,19 @@ struct ConnectToKeyView: View {
             Text("Select your Portiqo Key")
             List {
                 ForEach(detectedPeripherals, id: \.identifier) { peripheral in
-                    Text(peripheral.name ?? "Unknown peripheral")
+                    Button(peripheral.name ?? "Unknown Device") {
+                        connect(to: peripheral)
+                    }
                 }
             }
         }
         .onAppear {
             connectionManager.startScan()
         }
+    }
+
+    func connect(to peripheral: CBPeripheral) {
+        connectionManager.connect(to: peripheral)
     }
 }
 
