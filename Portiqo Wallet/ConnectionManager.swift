@@ -3,10 +3,11 @@ import SwiftUI
 import CoreBluetooth
 
 /// ConnectionManager is responsible for managing the Bluetooth connection between the iOS app
-/// and the Portiqo Key device. It handles creating/terminating the connection andd
-/// sending/receiving card data,
+/// and the Portiqo Key device. It handles creating/terminating the connection
+/// and sending/receiving raw data to Portiqo Key.
 @Observable
 class ConnectionManager: NSObject {
+
     /// Indicates whether there is a current active connection with the Portiqo Key
     var isKeyConnected: Bool = false
 
@@ -19,7 +20,7 @@ class ConnectionManager: NSObject {
     private var btRadioState: CBManagerState = .unknown
 
     /// Set containing Bluetooth Peripherals that have been discovered while scanning
-    private var discoveredPeripherals: Set<CBPeripheral> = []
+    private(set) var discoveredPeripherals: Set<CBPeripheral> = []
 
     /// The Portiqo Key that is currently connected
     private(set) var connectedPeripheral: CBPeripheral?
@@ -27,23 +28,41 @@ class ConnectionManager: NSObject {
     /// Portiqo key uses the Nordic UART Service (NUS) to communicate with Portiqo Wallet
     /// (https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/libraries/bluetooth/services/nus.html)
     ///
+    /// UUID that is advertised by devices that use NUS. This is used to filter out random "noise" devices when scanning and
+    /// to identify the NUS service once connected.
+    private let nusServiceUUID = CBUUID(string: "6E400001-B5A3-F393-E0A9-E50E24DCCA9E")
     /// Raw command data is written to this characteristic.
     /// This characteristic has UUID 6E400002-B5A3-F393-E0A9-E50E24DCCA9E
     var txCharacteristic: CBCharacteristic?
-
     /// Raw response data is received from this characteristic.
     /// Portiqo Wallet subscribes to notifications here to receive data.
     /// This characteristic has UUID 6E400003-B5A3-F393-E0A9-E50E24DCCA9E
     var rxCharacteristic: CBCharacteristic?
+    ///
+    /// The following UUIDs are used to identify the tx and rx characteristics:
+    private let nusTXUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") // Write
+    private let nusRXUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
+
+
+    override init() {
+        super.init()
+        self.centralManager.delegate = self // 2
+    }
 
     /// Starts scanning for Bluetooth devices
-    func startScan() async {
-
+    func startScan() {
+        guard btRadioState == .poweredOn else {
+            // TODO: Add error handling here
+            print("Couldn't start scan because radio wasn't ready")
+            return
+        }
+        centralManager.scanForPeripherals(withServices: [nusServiceUUID], options: nil)
     }
 
     /// Stops scanning for Bluetooth devices
-    func stopScan() async {
-
+    func stopScan() {
+        centralManager.stopScan()
+        discoveredPeripherals.removeAll()
     }
 
     /// Establishes a connection to the Portiqo Key
@@ -64,11 +83,25 @@ class ConnectionManager: NSObject {
     }
 }
 
+
 extension ConnectionManager: CBCentralManagerDelegate {
+    /// Updates btRadioState when the radio's status changes (airplane mode turned on, for example)
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         btRadioState = central.state
     }
-    
+
+    /// When a Bluetooth peripheral is discovered, add it discoveredPeripherals
+    func centralManager(
+        _ central: CBCentralManager,
+        didDiscover peripheral: CBPeripheral,
+        advertisementData: [String : Any],
+        rssi RSSI: NSNumber
+    ) {
+        if !discoveredPeripherals.contains(peripheral) {
+            discoveredPeripherals.insert(peripheral)
+        }
+    }
+
 }
 
 extension ConnectionManager: CBPeripheralDelegate {
