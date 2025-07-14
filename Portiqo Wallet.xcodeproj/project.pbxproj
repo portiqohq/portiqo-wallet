@@ -1,0 +1,580 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		5268CB7F2E21DF4B002CAE70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5268CB652E21DF4A002CAE70 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5268CB6C2E21DF4A002CAE70;
+			remoteInfo = "Portiqo Wallet";
+		};
+		5268CB892E21DF4B002CAE70 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5268CB652E21DF4A002CAE70 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5268CB6C2E21DF4A002CAE70;
+			remoteInfo = "Portiqo Wallet";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5268CB6D2E21DF4A002CAE70 /* Portiqo Wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Portiqo Wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5268CB7E2E21DF4B002CAE70 /* Portiqo WalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Portiqo WalletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5268CB882E21DF4B002CAE70 /* Portiqo WalletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Portiqo WalletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5268CB902E21DF4B002CAE70 /* Exceptions for "Portiqo Wallet" folder in "Portiqo Wallet" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 5268CB6C2E21DF4A002CAE70 /* Portiqo Wallet */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		5268CB6F2E21DF4A002CAE70 /* Portiqo Wallet */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5268CB902E21DF4B002CAE70 /* Exceptions for "Portiqo Wallet" folder in "Portiqo Wallet" target */,
+			);
+			path = "Portiqo Wallet";
+			sourceTree = "<group>";
+		};
+		5268CB812E21DF4B002CAE70 /* Portiqo WalletTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Portiqo WalletTests";
+			sourceTree = "<group>";
+		};
+		5268CB8B2E21DF4B002CAE70 /* Portiqo WalletUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Portiqo WalletUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5268CB6A2E21DF4A002CAE70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB7B2E21DF4B002CAE70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB852E21DF4B002CAE70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5268CB642E21DF4A002CAE70 = {
+			isa = PBXGroup;
+			children = (
+				5268CB6F2E21DF4A002CAE70 /* Portiqo Wallet */,
+				5268CB812E21DF4B002CAE70 /* Portiqo WalletTests */,
+				5268CB8B2E21DF4B002CAE70 /* Portiqo WalletUITests */,
+				5268CB6E2E21DF4A002CAE70 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5268CB6E2E21DF4A002CAE70 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5268CB6D2E21DF4A002CAE70 /* Portiqo Wallet.app */,
+				5268CB7E2E21DF4B002CAE70 /* Portiqo WalletTests.xctest */,
+				5268CB882E21DF4B002CAE70 /* Portiqo WalletUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5268CB6C2E21DF4A002CAE70 /* Portiqo Wallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5268CB912E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo Wallet" */;
+			buildPhases = (
+				5268CB692E21DF4A002CAE70 /* Sources */,
+				5268CB6A2E21DF4A002CAE70 /* Frameworks */,
+				5268CB6B2E21DF4A002CAE70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				5268CB6F2E21DF4A002CAE70 /* Portiqo Wallet */,
+			);
+			name = "Portiqo Wallet";
+			packageProductDependencies = (
+			);
+			productName = "Portiqo Wallet";
+			productReference = 5268CB6D2E21DF4A002CAE70 /* Portiqo Wallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5268CB7D2E21DF4B002CAE70 /* Portiqo WalletTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5268CB962E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo WalletTests" */;
+			buildPhases = (
+				5268CB7A2E21DF4B002CAE70 /* Sources */,
+				5268CB7B2E21DF4B002CAE70 /* Frameworks */,
+				5268CB7C2E21DF4B002CAE70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5268CB802E21DF4B002CAE70 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5268CB812E21DF4B002CAE70 /* Portiqo WalletTests */,
+			);
+			name = "Portiqo WalletTests";
+			packageProductDependencies = (
+			);
+			productName = "Portiqo WalletTests";
+			productReference = 5268CB7E2E21DF4B002CAE70 /* Portiqo WalletTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5268CB872E21DF4B002CAE70 /* Portiqo WalletUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5268CB992E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo WalletUITests" */;
+			buildPhases = (
+				5268CB842E21DF4B002CAE70 /* Sources */,
+				5268CB852E21DF4B002CAE70 /* Frameworks */,
+				5268CB862E21DF4B002CAE70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5268CB8A2E21DF4B002CAE70 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				5268CB8B2E21DF4B002CAE70 /* Portiqo WalletUITests */,
+			);
+			name = "Portiqo WalletUITests";
+			packageProductDependencies = (
+			);
+			productName = "Portiqo WalletUITests";
+			productReference = 5268CB882E21DF4B002CAE70 /* Portiqo WalletUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5268CB652E21DF4A002CAE70 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					5268CB6C2E21DF4A002CAE70 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					5268CB7D2E21DF4B002CAE70 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 5268CB6C2E21DF4A002CAE70;
+					};
+					5268CB872E21DF4B002CAE70 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 5268CB6C2E21DF4A002CAE70;
+					};
+				};
+			};
+			buildConfigurationList = 5268CB682E21DF4A002CAE70 /* Build configuration list for PBXProject "Portiqo Wallet" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5268CB642E21DF4A002CAE70;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5268CB6E2E21DF4A002CAE70 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5268CB6C2E21DF4A002CAE70 /* Portiqo Wallet */,
+				5268CB7D2E21DF4B002CAE70 /* Portiqo WalletTests */,
+				5268CB872E21DF4B002CAE70 /* Portiqo WalletUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5268CB6B2E21DF4A002CAE70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB7C2E21DF4B002CAE70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB862E21DF4B002CAE70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5268CB692E21DF4A002CAE70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB7A2E21DF4B002CAE70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5268CB842E21DF4B002CAE70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5268CB802E21DF4B002CAE70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5268CB6C2E21DF4A002CAE70 /* Portiqo Wallet */;
+			targetProxy = 5268CB7F2E21DF4B002CAE70 /* PBXContainerItemProxy */;
+		};
+		5268CB8A2E21DF4B002CAE70 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5268CB6C2E21DF4A002CAE70 /* Portiqo Wallet */;
+			targetProxy = 5268CB892E21DF4B002CAE70 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5268CB922E21DF4B002CAE70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Portiqo Wallet/Portiqo_Wallet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Portiqo Wallet/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-Wallet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5268CB932E21DF4B002CAE70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Portiqo Wallet/Portiqo_Wallet.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Portiqo Wallet/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-Wallet";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5268CB942E21DF4B002CAE70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5268CB952E21DF4B002CAE70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5268CB972E21DF4B002CAE70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-WalletTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Portiqo Wallet.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Portiqo Wallet";
+			};
+			name = Debug;
+		};
+		5268CB982E21DF4B002CAE70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-WalletTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Portiqo Wallet.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Portiqo Wallet";
+			};
+			name = Release;
+		};
+		5268CB9A2E21DF4B002CAE70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-WalletUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Portiqo Wallet";
+			};
+			name = Debug;
+		};
+		5268CB9B2E21DF4B002CAE70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = M2FC99MLMH;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "nelsonhealy.Portiqo-WalletUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Portiqo Wallet";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5268CB682E21DF4A002CAE70 /* Build configuration list for PBXProject "Portiqo Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5268CB942E21DF4B002CAE70 /* Debug */,
+				5268CB952E21DF4B002CAE70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5268CB912E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo Wallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5268CB922E21DF4B002CAE70 /* Debug */,
+				5268CB932E21DF4B002CAE70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5268CB962E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo WalletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5268CB972E21DF4B002CAE70 /* Debug */,
+				5268CB982E21DF4B002CAE70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5268CB992E21DF4B002CAE70 /* Build configuration list for PBXNativeTarget "Portiqo WalletUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5268CB9A2E21DF4B002CAE70 /* Debug */,
+				5268CB9B2E21DF4B002CAE70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5268CB652E21DF4A002CAE70 /* Project object */;
+}
