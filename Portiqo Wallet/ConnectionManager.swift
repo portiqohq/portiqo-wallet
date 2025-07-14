@@ -1,15 +1,50 @@
 import Foundation
 import SwiftUI
+import CoreBluetooth
 
 /// ConnectionManager is responsible for managing the Bluetooth connection between the iOS app
 /// and the Portiqo Key device. It handles creating/terminating the connection andd
 /// sending/receiving card data,
 @Observable
-class ConnectionManager {
+class ConnectionManager: NSObject {
     /// Indicates whether there is a current active connection with the Portiqo Key
     var isKeyConnected: Bool = false
+
     /// The card's unique identifier.
-    var currentCard: UUID? = nil
+    var currentCard: UUID? = nil // TODO: Move this up a layer
+
+    private let centralManager = CBCentralManager()
+
+    /// Shows the state of the bluetooth radio (Good, BT off, no permissions, etc.)
+    private var btRadioState: CBManagerState = .unknown
+
+    /// Set containing Bluetooth Peripherals that have been discovered while scanning
+    private var discoveredPeripherals: Set<CBPeripheral> = []
+
+    /// The Portiqo Key that is currently connected
+    private(set) var connectedPeripheral: CBPeripheral?
+
+    /// Portiqo key uses the Nordic UART Service (NUS) to communicate with Portiqo Wallet
+    /// (https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/libraries/bluetooth/services/nus.html)
+    ///
+    /// Raw command data is written to this characteristic.
+    /// This characteristic has UUID 6E400002-B5A3-F393-E0A9-E50E24DCCA9E
+    var txCharacteristic: CBCharacteristic?
+
+    /// Raw response data is received from this characteristic.
+    /// Portiqo Wallet subscribes to notifications here to receive data.
+    /// This characteristic has UUID 6E400003-B5A3-F393-E0A9-E50E24DCCA9E
+    var rxCharacteristic: CBCharacteristic?
+
+    /// Starts scanning for Bluetooth devices
+    func startScan() async {
+
+    }
+
+    /// Stops scanning for Bluetooth devices
+    func stopScan() async {
+
+    }
 
     /// Establishes a connection to the Portiqo Key
     func connect() async {
@@ -23,6 +58,26 @@ class ConnectionManager {
         self.isKeyConnected = false
     }
 
+    /// Sends raw data to Portiqo Key
+    func send_data() async {
+
+    }
+}
+
+extension ConnectionManager: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        btRadioState = central.state
+    }
+    
+}
+
+extension ConnectionManager: CBPeripheralDelegate {
+
+}
+
+
+// TODO: Everything below here moves up a layer or two
+extension ConnectionManager {
     /// Erases keycard from  Portiqo Key
     func eraseKey() async {
         try? await Task.sleep(nanoseconds: 100_000_000) // 0.1s to simulate HW delay/
@@ -52,7 +107,6 @@ class ConnectionManager {
         try? await Task.sleep(nanoseconds: 1_000_000_000) // 0.1s to simulate HW delay
         return UUID()
     }
-
 }
 
 private struct ConnectionManagerKey: EnvironmentKey {
