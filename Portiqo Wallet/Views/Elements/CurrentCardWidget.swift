@@ -2,7 +2,8 @@ import SwiftUI
 import SwiftData
 
 struct CurrentCardWidget: View {
-    @Environment(\.connectionManager) private var connectionManager
+    @Environment(\.dependencies) private var dependencies
+    var connectionManager: ConnectionManager { dependencies.connectionManager }
     var currentCardID: UUID
     @Query private var allCards: [Keycard]
 

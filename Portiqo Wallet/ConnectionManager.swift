@@ -8,6 +8,8 @@ import CoreBluetooth
 @Observable
 class ConnectionManager: NSObject {
 
+    var onDataReceived: ((Data) -> Void)?
+
     /// Stores errors raised during the connection process
     private(set) var connectionError: ConnectionError? = nil
 
@@ -95,8 +97,23 @@ class ConnectionManager: NSObject {
     }
 
     /// Sends raw data to Portiqo Key
-    func send_data() async {
+    func send(_ data: Data) {
+        guard verifyBluetoothActive() else { return }
+        guard let peripheral = connectedPeripheral else {
+            print("Can't write, not connected :(")
+            return
+        }
+        guard let tx = self.txCharacteristic else {
+            print("No TX Characteristic. Not sure how this happens")
+            return
+        }
+        peripheral.writeValue(data, for: tx, type: .withoutResponse)
+    }
 
+    func simulateReceivingData() {
+        let fakeResponse = Data([0x11, 0xEF, 0x03, 0xE8])
+        print("Simulating receiving data…")
+        onDataReceived?(fakeResponse)
     }
 }
 
@@ -164,6 +181,14 @@ extension ConnectionManager: CBPeripheralDelegate {
             self.isKeyConnected = true
         }
     }
+
+    /// When data is received from Portiqo Key,
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard characteristic.uuid == nusRxUUID,
+              let data = characteristic.value else {
+            return
+        }
+    }
 }
 
 
@@ -197,17 +222,5 @@ extension ConnectionManager {
     func getCurrentCard() async -> UUID? {
         try? await Task.sleep(nanoseconds: 1_000_000_000) // 0.1s to simulate HW delay
         return UUID()
-    }
-}
-
-private struct ConnectionManagerKey: EnvironmentKey {
-    static let defaultValue = ConnectionManager()
-}
-
-extension EnvironmentValues {
-    /// The current ConnectionManager instance available in the environment.
-    var connectionManager: ConnectionManager {
-        get { self[ConnectionManagerKey.self] }
-        set { self[ConnectionManagerKey.self] = newValue }
     }
 }

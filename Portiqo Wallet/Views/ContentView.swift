@@ -3,10 +3,11 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Environment(\.connectionManager) private var connectionManager
+    @Environment(\.dependencies) private var dependencies
     @Query private var keycards: [Keycard]
     @State var isShowingCloneCardSheet: Bool = false
 
+    var connectionManager: ConnectionManager { dependencies.connectionManager }
     var isKeyConnected: Bool { connectionManager.isKeyConnected }
     // Cards that aren't loaded onto Portiqo Key
     var inactiveKeycards: [Keycard] {

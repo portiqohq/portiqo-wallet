@@ -3,7 +3,8 @@ import CoreBluetooth
 
 struct ConnectToKeyView: View {
     // TODO: This is called as a sheet from NoConnectionWidget. When the connection is successful, NoConnectionWidget is killed, abruptly killing the sheet.
-    @Environment(\.connectionManager) private var connectionManager
+    @Environment(\.dependencies) private var dependencies
+    var connectionManager: ConnectionManager { dependencies.connectionManager }
     var detectedPeripherals: [CBPeripheral] { connectionManager.discoveredPeripherals.sorted { $0.name ?? "" < $1.name ?? "" } }
     var body: some View {
         VStack {

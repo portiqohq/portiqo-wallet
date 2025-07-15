@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct CloneCardView: View {
-    @Environment(\.connectionManager) private var connectionManager
+    @Environment(\.dependencies) private var dependencies
+    var connectionManager: ConnectionManager { dependencies.connectionManager }
     @State var attributes: KeycardAttributes?
     var body: some View {
         VStack {

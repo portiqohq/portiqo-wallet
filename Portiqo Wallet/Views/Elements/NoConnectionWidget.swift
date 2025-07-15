@@ -2,7 +2,8 @@ import SwiftUI
 import SwiftData
 
 struct NoConnectionWidget: View {
-    @Environment(\.connectionManager) private var connectionManager
+    @Environment(\.dependencies) private var dependencies
+    var connectionManager: ConnectionManager { dependencies.connectionManager }
     @State var isShowingConnectionSheet: Bool = false
     var body: some View {
         VStack {
