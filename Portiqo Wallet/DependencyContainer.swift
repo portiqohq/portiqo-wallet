@@ -9,8 +9,12 @@ final class DependencyContainer: ObservableObject {
         chameleonCodec = ChameleonCodec()
         connectionManager = ConnectionManager()
 
-        connectionManager.onDataReceived = { [weak chameleonCodec] data in
-            chameleonCodec?.handleIncomingData(data)
+        connectionManager.onDataReceived = { [weak self] data in
+            self?.chameleonCodec.handleIncomingData(data)
+        }
+
+        chameleonCodec.send = { [weak self] data in
+            self?.connectionManager.send(data)
         }
     }
 }

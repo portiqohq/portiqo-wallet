@@ -184,10 +184,10 @@ extension ConnectionManager: CBPeripheralDelegate {
 
     /// When data is received from Portiqo Key,
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        guard characteristic.uuid == nusRxUUID,
-              let data = characteristic.value else {
+        guard characteristic.uuid == nusRxUUID, let data = characteristic.value else {
             return
         }
+        onDataReceived?(data)
     }
 }
 
