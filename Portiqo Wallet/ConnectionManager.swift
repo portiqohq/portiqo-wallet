@@ -25,6 +25,9 @@ class ConnectionManager: NSObject {
     /// The Portiqo Key that is currently connected
     private(set) var connectedPeripheral: CBPeripheral?
 
+    /// Stores the Peripheral the user has chosen to connect to. Used to reject notifications that may arise from unrelated devices.
+    private var pendingConnectionTo: CBPeripheral?
+
     /// Portiqo key uses the Nordic UART Service (NUS) to communicate with Portiqo Wallet
     /// (https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/libraries/bluetooth/services/nus.html)
     ///
@@ -72,6 +75,7 @@ class ConnectionManager: NSObject {
             print("Tried to connect with BT off")
             return
         }
+        self.pendingConnectionTo = peripheral
         centralManager.connect(peripheral, options: nil)
         self.connectedPeripheral = peripheral
     }
@@ -106,12 +110,13 @@ extension ConnectionManager: CBCentralManagerDelegate {
         }
     }
 
-    // When a device connects, set it as the connectedPeripheral and start service discovery
+    // When a device connects, discover services and set it as the connectedPeripheral
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected to \(peripheral.name ?? "device")")
+        guard peripheral == self.pendingConnectionTo else { return } // Reject advances from random peripherals
         peripheral.delegate = self
-        self.connectedPeripheral = peripheral
         peripheral.discoverServices([nusServiceUUID])
+        self.connectedPeripheral = peripheral
     }
 
 }
