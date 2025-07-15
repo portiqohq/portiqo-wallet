@@ -77,7 +77,7 @@ class ConnectionManager: NSObject {
         }
         self.pendingConnectionTo = peripheral
         centralManager.connect(peripheral, options: nil)
-        self.connectedPeripheral = peripheral
+        stopScan()
     }
 
     /// Terminates connection to the Portiqo Key
