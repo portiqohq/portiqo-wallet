@@ -101,7 +101,7 @@ class ChameleonCodec {
         guard let status = ChameleonStatus(rawValue: statusCode) else {
             throw MessageError.unknownStatusReceived
         }
-        return ChameleonMessage(timestamp: Date(), statusCode: status, command: command, data: data)
+        return ChameleonMessage(statusCode: status, command: command, data: data)
     }
 
 
