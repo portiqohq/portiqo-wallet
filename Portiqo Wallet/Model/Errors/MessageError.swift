@@ -6,8 +6,8 @@ enum MessageError: Error, LocalizedError, Equatable {
     case failedValidation // One of the LRCs didn't match
     case unknownCommandReceived // Received a command code not listed in ChameleonCommand enum
     case unknownStatusReceived // Received a status code not listed in ChameleonStatus enum
+    case noMessageReceived // No message received from the device
     case noCommand // No command provided
-
     case unknown
 
     var errorDescription: String? {
@@ -22,6 +22,8 @@ enum MessageError: Error, LocalizedError, Equatable {
             return "Unknown command code in this message."
         case .unknownStatusReceived:
             return "Unknown status code in this message."
+        case .noMessageReceived:
+            return "No message received back from Portiqo Key."
         case .noCommand:
             return "No command provided in this message."
         case .unknown:
