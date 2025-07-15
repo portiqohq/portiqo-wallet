@@ -8,6 +8,9 @@ import CoreBluetooth
 @Observable
 class ConnectionManager: NSObject {
 
+    /// Stores errors raised during the connection process
+    private(set) var connectionError: ConnectionError? = nil
+
     /// Indicates whether there is a current active connection with the Portiqo Key
     var isKeyConnected: Bool = false
 
@@ -52,13 +55,23 @@ class ConnectionManager: NSObject {
         self.centralManager.delegate = self // 2
     }
 
+    /// Verifies that the Bluetooth radio is on and accessible; sets error state if it's not.
+    func verifyBluetoothActive() -> Bool {
+        if btRadioState == .poweredOn {
+            return true
+        } else if btRadioState == .poweredOff {
+            self.connectionError = .bluetoothOff
+        } else if btRadioState == .unauthorized {
+            self.connectionError = .bluetoothMissingPermissions
+        } else {
+            
+        }
+        return false
+    }
+
     /// Starts scanning for Bluetooth devices
     func startScan() {
-        guard btRadioState == .poweredOn else {
-            // TODO: Add error handling here
-            print("Couldn't start scan because radio wasn't ready")
-            return
-        }
+        guard verifyBluetoothActive() else { return }
         centralManager.scanForPeripherals(withServices: [nusServiceUUID], options: nil)
     }
 
@@ -70,11 +83,7 @@ class ConnectionManager: NSObject {
 
     /// Establishes a connection to the Portiqo Key
     func connect(to peripheral: CBPeripheral) {
-        guard btRadioState == .poweredOn else {
-            // TODO: Add error handling
-            print("Tried to connect with BT off")
-            return
-        }
+        guard verifyBluetoothActive() else { return }
         self.pendingConnectionTo = peripheral
         centralManager.connect(peripheral, options: nil)
         stopScan()
