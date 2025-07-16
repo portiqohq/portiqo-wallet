@@ -2,12 +2,14 @@ import Foundation
 import SwiftUI
 
 final class DependencyContainer: ObservableObject {
-    let chameleonCodec: ChameleonCodec
     let connectionManager: ConnectionManager
+    let chameleonCodec: ChameleonCodec
+    let chameleon: Chameleon
 
     init() {
-        chameleonCodec = ChameleonCodec()
         connectionManager = ConnectionManager()
+        chameleonCodec = ChameleonCodec()
+        chameleon = Chameleon(codec: chameleonCodec)
 
         connectionManager.onDataReceived = { [weak self] data in
             self?.chameleonCodec.handleIncomingData(data)
