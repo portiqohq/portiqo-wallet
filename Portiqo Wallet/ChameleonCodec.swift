@@ -4,11 +4,13 @@ class ChameleonCodec {
     /// Array of all responses sent by Portiqo Key.
     private var continuation: CheckedContinuation<ChameleonMessage, Error>?
 
-    var send: ((Data) -> Void)? // Closure for sending data out
+    init(send: @escaping (Data) -> Void) {
+        self.send = send
+    }
+    var send: ((Data) -> Void) // Closure for sending data out
 
     /// Receives incoming data from ConnectionManager, parses it, and adds it to the
     func handleIncomingData(_ data: Data) {
-        print("Received message: \(data)")
         do {
             let message = try decodeMessage(data)
             continuation?.resume(returning: message)
@@ -30,7 +32,7 @@ class ChameleonCodec {
 
     func sendMessage(_ message: ChameleonMessage) async throws {
         let messageToSend = try encodeMessage(message)
-        send?(messageToSend)
+        send(messageToSend)
     }
 
     /// Encodes message for Portiqo key. All multi-bytes are in Big-Endian order.

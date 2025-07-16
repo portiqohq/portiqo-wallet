@@ -8,15 +8,14 @@ final class DependencyContainer: ObservableObject {
 
     init() {
         connectionManager = ConnectionManager()
-        chameleonCodec = ChameleonCodec()
+        let sendClosure: (Data) -> Void = { [weak connectionManager] data in
+            connectionManager?.send(data)
+        }
+        chameleonCodec = ChameleonCodec(send: sendClosure)
         chameleon = Chameleon(codec: chameleonCodec)
 
         connectionManager.onDataReceived = { [weak self] data in
             self?.chameleonCodec.handleIncomingData(data)
-        }
-
-        chameleonCodec.send = { [weak self] data in
-            self?.connectionManager.send(data)
         }
     }
 }
