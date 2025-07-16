@@ -7,32 +7,23 @@ import CoreBluetooth
 /// and sending/receiving raw data to Portiqo Key.
 @Observable
 class ConnectionManager: NSObject {
-
+    /// Closure to forward received data to the decoder.
     var onDataReceived: ((Data) -> Void)?
-
     /// Stores errors raised during the connection process
     private(set) var connectionError: ConnectionError? = nil
-
     /// Indicates whether there is a current active connection with the Portiqo Key
     var isKeyConnected: Bool = false
-
     /// The card's unique identifier.
     var currentCard: UUID? = nil // TODO: Move this up a layer
-
     private let centralManager = CBCentralManager()
-
     /// Shows the state of the bluetooth radio (Good, BT off, no permissions, etc.)
     private var btRadioState: CBManagerState = .unknown
-
     /// Set containing Bluetooth Peripherals that have been discovered while scanning
     private(set) var discoveredPeripherals: Set<CBPeripheral> = []
-
     /// The Portiqo Key that is currently connected
     private(set) var connectedPeripheral: CBPeripheral?
-
     /// Stores the Peripheral the user has chosen to connect to. Used to reject notifications that may arise from unrelated devices.
     private var pendingConnectionTo: CBPeripheral?
-
     /// Portiqo key uses the Nordic UART Service (NUS) to communicate with Portiqo Wallet
     /// (https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/libraries/bluetooth/services/nus.html)
     ///
@@ -48,13 +39,13 @@ class ConnectionManager: NSObject {
     var rxCharacteristic: CBCharacteristic?
     ///
     /// The following UUIDs are used to identify the tx and rx characteristics:
-    private let nusTxUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E") // Write
+    private let nusTxUUID = CBUUID(string: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E")
     private let nusRxUUID = CBUUID(string: "6E400003-B5A3-F393-E0A9-E50E24DCCA9E")
 
 
     override init() {
         super.init()
-        self.centralManager.delegate = self // 2
+        self.centralManager.delegate = self
     }
 
     /// Verifies that the Bluetooth radio is on and accessible; sets error state if it's not.
@@ -97,7 +88,7 @@ class ConnectionManager: NSObject {
     }
 
     /// Sends raw data to Portiqo Key
-    func send(_ data: Data) {
+    func serialWrite(_ data: Data) {
         guard verifyBluetoothActive() else { return }
         guard let peripheral = connectedPeripheral else {
             print("Can't write, not connected :(")
@@ -108,12 +99,6 @@ class ConnectionManager: NSObject {
             return
         }
         peripheral.writeValue(data, for: tx, type: .withoutResponse)
-    }
-
-    func simulateReceivingData() {
-        let fakeResponse = Data([0x11, 0xEF, 0x03, 0xE8])
-        print("Simulating receiving data…")
-        onDataReceived?(fakeResponse)
     }
 }
 
@@ -136,7 +121,7 @@ extension ConnectionManager: CBCentralManagerDelegate {
         }
     }
 
-    // When a device connects, discover services and set it as the connectedPeripheral
+    /// When a device connects, discover services and set it as the connectedPeripheral
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected to \(peripheral.name ?? "device")")
         guard peripheral == self.pendingConnectionTo else { return } // Reject advances from random peripherals
@@ -162,7 +147,7 @@ extension ConnectionManager: CBPeripheralDelegate {
         }
     }
 
-    /// When a NUS characteristics are discovered, save and enable them
+    /// When NUS characteristics are discovered, save and enable them
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         guard let characteristics = service.characteristics else { return }
 
@@ -182,7 +167,7 @@ extension ConnectionManager: CBPeripheralDelegate {
         }
     }
 
-    /// When data is received from Portiqo Key,
+    /// When data is received from Portiqo Key, pipe it to the codec via closure
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         guard characteristic.uuid == nusRxUUID, let data = characteristic.value else {
             return

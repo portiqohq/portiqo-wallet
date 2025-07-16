@@ -1,15 +1,25 @@
 import Foundation
 
 class ChameleonCodec {
-    /// Array of all responses sent by Portiqo Key.
+    /// Continuation used to fulfill a pending response request
+    /// Note that only one continuation can be active at a time. If another request is made while `continuation` != nil,
+    /// MessageError.pendingResponse will be thrown
     private var continuation: CheckedContinuation<ChameleonMessage, Error>?
 
-    init(send: @escaping (Data) -> Void) {
-        self.send = send
+    init(transmitClosure: @escaping (Data) -> Void) {
+        self.transmitToDevice = transmitClosure
     }
-    var send: ((Data) -> Void) // Closure for sending data out
+    var transmitToDevice: ((Data) -> Void) // Closure for sending data out
 
-    /// Receives incoming data from ConnectionManager, parses it, and adds it to the
+    /// Handles raw data received from the Portiqo Key device.
+    ///
+    /// This method decodes the frame into a `ChameleonMessage` and resumes the awaiting continuation
+    /// that was initiated via `sendAndWaitForResponse(_:)`.
+    /// It must be called for every frame received from the device.
+    ///
+    /// - Parameter data: The raw byte sequence received from the device.
+    /// - Note: If the data is malformed or validation fails, the pending continuation will be resumed with an error.
+    /// - Important:
     func handleIncomingData(_ data: Data) {
         do {
             let message = try decodeMessage(data)
@@ -19,7 +29,22 @@ class ChameleonCodec {
         }
         continuation = nil
     }
-    
+
+    /// Sends a message to the Portiqo Key without waiting for a response.
+    ///
+    /// This is useful for commands that do not return data, such as simple triggers or state changes.
+    ///
+    /// - Parameter message: The message to encode and transmit.
+    /// - Throws: `MessageError.noCommand` if the message lacks a command.
+    func sendMessage(_ message: ChameleonMessage) async throws {
+        let messageToSend = try encodeMessage(message)
+        transmitToDevice(messageToSend)
+    }
+
+    /// Sends a message to the Portiqo Key device and awaits a response.
+    ///
+    /// This method encodes the given `ChameleonMessage`, transmits it using the `transmitToDevice` handler,
+    /// and suspends until a response is received or an error occurs.
     func sendAndWaitForResponse(_ message: ChameleonMessage) async throws -> ChameleonMessage {
         guard continuation == nil else {
             throw MessageError.pendingResponse
@@ -30,13 +55,12 @@ class ChameleonCodec {
         }
     }
 
-    func sendMessage(_ message: ChameleonMessage) async throws {
-        let messageToSend = try encodeMessage(message)
-        send(messageToSend)
-    }
-
-    /// Encodes message for Portiqo key. All multi-bytes are in Big-Endian order.
+    /// Encodes a `ChameleonMessage` into data which can be accepted by Portiqo Key
     /// Frame format: https://github.com/RfidResearchGroup/ChameleonUltra/wiki/protocol#frame-format
+    ///
+    /// Parameter message: The message to encode.
+    /// - Returns: A `Data` value containing the complete frame.
+    /// - Throws: `MessageError.noCommand` if the provided message didn't provide a command.
     private func encodeMessage(_ message: ChameleonMessage) throws -> Data {
         guard let command = message.command else {
             throw MessageError.noCommand
@@ -72,8 +96,11 @@ class ChameleonCodec {
         return frame
     }
 
-    /// Checks data integrity and decodes a frame received from Portiqo Key
+    /// Creates a `ChameleonMessage` from the raw data provided by Portiqo Key, including integrity checks
     /// Frame format: https://github.com/RfidResearchGroup/ChameleonUltra/wiki/protocol#frame-format
+    /// - Parameter frame: The raw byte sequence received from the device.
+    /// - Returns: A `ChameleonMessage` with the data received from the Portiqo Key
+    /// - Throws: `MessageError` if the frame is malformed, fails validation, or contains unknown command/status codes.
     func decodeMessage(_ frame: Data ) throws -> ChameleonMessage {
         let length = frame.count
         guard length >= 10 else {
@@ -111,7 +138,13 @@ class ChameleonCodec {
         return ChameleonMessage(statusCode: status, command: command, data: data)
     }
 
-    /// Calculates the Longitudinal Redundancy Check for a given sequence of bytes using the formula
+    /// Calculates the Longitudinal Redundancy Check (LRC) for a sequence of bytes.
+    ///
+    /// The LRC is used for protocol-level validation of both message headers and payloads.
+    /// It is computed as the two's complement of the sum of all bytes, modulo 256.
+    ///
+    /// - Parameter bytes: The byte sequence to compute the LRC for.
+    /// - Returns: A single-byte checksum value.
     static func calcLRC(_ bytes: Data) -> UInt8 {
         let sum = bytes.reduce(0, { $0 &+ $1 }) // wrapping addition
         return (~sum &+ 1) & 0xFF
