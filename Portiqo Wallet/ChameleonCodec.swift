@@ -39,9 +39,7 @@ class ChameleonCodec {
     /// Frame format: https://github.com/RfidResearchGroup/ChameleonUltra/wiki/protocol#frame-format
     private func encodeMessage(_ message: ChameleonMessage) throws -> Data {
         guard let command = message.command else {
-            // TODO: Error handling here
-            print("No command provided")
-            return Data()
+            throw MessageError.noCommand
         }
         var frame = Data()
         // Start of frame byte, always 0x11
