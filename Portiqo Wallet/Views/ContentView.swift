@@ -20,6 +20,9 @@ struct ContentView: View {
         NavigationSplitView {
             switch isKeyConnected {
             case true:
+                Button("Print Firmware Version") {
+                    printFirmwareVersion()
+                }
                 if let currentCardID = connectionManager.currentCard {
                     CurrentCardWidget(currentCardID: currentCardID)
                 }
@@ -56,6 +59,15 @@ struct ContentView: View {
             }
         } detail: {
             Text("Select an item")
+        }
+    }
+
+
+    private func printFirmwareVersion() {
+        Task {
+            do {
+                try await dependencies.chameleon.getAppVersion()
+            }
         }
     }
 
