@@ -57,7 +57,7 @@ class ConnectionManager: NSObject {
         } else if btRadioState == .unauthorized {
             self.connectionError = .bluetoothMissingPermissions
         } else {
-            
+            self.connectionError = .bluetoothRadioNotAvailable
         }
         return false
     }
