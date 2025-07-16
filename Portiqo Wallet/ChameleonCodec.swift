@@ -17,6 +17,7 @@ class ChameleonCodec {
         }
         continuation = nil
     }
+    
     func sendAndWaitForResponse(_ message: ChameleonMessage) async throws -> ChameleonMessage {
         let messageToSend = try encodeMessage(message)
         send?(messageToSend)
@@ -50,13 +51,13 @@ class ChameleonCodec {
         frame.append(UInt8(dataBlockLength >> 8))
         frame.append(UInt8(dataBlockLength & 0xFF))
         // LRC for command, status, data length
-        let lrc2 = calcLRC(frame[2...7])
+        let lrc2 = Self.calcLRC(frame[2...7])
         frame.append(lrc2)
         // The data, if any
         let data = message.data ?? Data()
         frame.append(data)
         // LRC for the data itself
-        let lrc3 = calcLRC(data)
+        let lrc3 = Self.calcLRC(data)
         frame.append(lrc3)
         // All done! That wasn't so bad!
         return frame
@@ -86,8 +87,8 @@ class ChameleonCodec {
         let lrc3 = frame[length-1]
         // Make sure LRC checks pass OK
         let expectedLRC1: UInt8 = 0xEF
-        let expectedLRC2 = calcLRC(frame[2...7]) // command through datablockLength
-        let expectedLRC3 = calcLRC(data)
+        let expectedLRC2 = Self.calcLRC(frame[2...7]) // command through datablockLength
+        let expectedLRC3 = Self.calcLRC(data)
         guard lrc1 == expectedLRC1 && lrc2 == expectedLRC2 && lrc3 == expectedLRC3 else {
             throw MessageError.failedValidation
         }
@@ -102,7 +103,7 @@ class ChameleonCodec {
     }
 
     /// Calculates the Longitudinal Redundancy Check for a given sequence of bytes using the formula
-    func calcLRC(_ bytes: Data) -> UInt8 {
+    static func calcLRC(_ bytes: Data) -> UInt8 {
         let sum = bytes.reduce(0, { $0 &+ $1 }) // wrapping addition
         return (~sum &+ 1) & 0xFF
     }
