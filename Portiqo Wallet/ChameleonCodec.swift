@@ -2,13 +2,7 @@ import Foundation
 
 class ChameleonCodec {
     /// Array of all responses sent by Portiqo Key.
-    private var continuation: CheckedContinuation<ChameleonMessage?, Never>?
-    var response: ChameleonMessage? = nil {
-        didSet {
-            continuation?.resume(returning: response)
-            continuation = nil
-        }
-    }
+    private var continuation: CheckedContinuation<ChameleonMessage, Error>?
 
     var send: ((Data) -> Void)? // Closure for sending data out
 
@@ -17,22 +11,18 @@ class ChameleonCodec {
         print("Received message: \(data)")
         do {
             let message = try decodeMessage(data)
-            self.response = message
+            continuation?.resume(returning: message)
         } catch {
-            print("Error decoding message: \(error)")
+            continuation?.resume(throwing: error)
         }
+        continuation = nil
     }
-
     func sendAndWaitForResponse(_ message: ChameleonMessage) async throws -> ChameleonMessage {
         let messageToSend = try encodeMessage(message)
         send?(messageToSend)
-        let response = await withCheckedContinuation { continuation in
+        return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
         }
-        guard let response = response else {
-            throw MessageError.noMessageReceived
-        }
-        return response
     }
 
     /// Encodes message for Portiqo key. All multi-bytes are in Big-Endian order.
@@ -111,11 +101,9 @@ class ChameleonCodec {
         return ChameleonMessage(statusCode: status, command: command, data: data)
     }
 
-
     /// Calculates the Longitudinal Redundancy Check for a given sequence of bytes using the formula
     func calcLRC(_ bytes: Data) -> UInt8 {
         let sum = bytes.reduce(0, { $0 &+ $1 }) // wrapping addition
         return (~sum &+ 1) & 0xFF
     }
-
 }
