@@ -1,6 +1,7 @@
 import Foundation
 
 enum MessageError: Error, LocalizedError, Equatable {
+    case pendingResponse // We're waiting for the response from another command
     case unexpectedFrameFormat // Frame doesn't start with expected 0x11 header
     case frameTruncated // Received an unexpectedly short frame
     case failedValidation // One of the LRCs didn't match
@@ -12,6 +13,8 @@ enum MessageError: Error, LocalizedError, Equatable {
 
     var errorDescription: String? {
         switch self {
+        case .pendingResponse:
+            return "Another command is already in progress. Wait for the response before sending another one."
         case .unexpectedFrameFormat:
             return "Received data that wasn't in expected format."
         case .frameTruncated:

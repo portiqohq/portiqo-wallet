@@ -19,6 +19,9 @@ class ChameleonCodec {
     }
     
     func sendAndWaitForResponse(_ message: ChameleonMessage) async throws -> ChameleonMessage {
+        guard continuation == nil else {
+            throw MessageError.pendingResponse
+        }
         try await sendMessage(message)
         return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
