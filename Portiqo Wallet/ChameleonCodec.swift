@@ -93,7 +93,8 @@ class ChameleonCodec {
         guard length == 9 + datablockLength + 1 else {
             throw MessageError.frameTruncated
         }
-        let data = frame[9..<length-1] // 9-byte header prior to data
+        // Making sure to copy the data since we're going to deallocate the frame once we return
+        let data = Data(frame[9..<length-1]) // 9-byte header prior to data
         let lrc3 = frame[length-1]
         // Make sure LRC checks pass OK
         let expectedLRC1: UInt8 = 0xEF
