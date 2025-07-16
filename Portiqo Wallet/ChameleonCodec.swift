@@ -19,11 +19,15 @@ class ChameleonCodec {
     }
     
     func sendAndWaitForResponse(_ message: ChameleonMessage) async throws -> ChameleonMessage {
-        let messageToSend = try encodeMessage(message)
-        send?(messageToSend)
+        try await sendMessage(message)
         return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
         }
+    }
+
+    func sendMessage(_ message: ChameleonMessage) async throws {
+        let messageToSend = try encodeMessage(message)
+        send?(messageToSend)
     }
 
     /// Encodes message for Portiqo key. All multi-bytes are in Big-Endian order.
